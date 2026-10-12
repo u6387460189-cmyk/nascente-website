@@ -24,7 +24,10 @@ export function InquiryForm({
   const f = t.form;
   const [status, setStatus] = useState<Status>("idle");
   const [sessionError, setSessionError] = useState(false);
-  const thisYear = new Date().getFullYear();
+  // Birth years follow the season on offer (ages 3 to 8, with a year of leeway either side),
+  // not today's date, so the list stays right whenever someone books.
+  const campYear = Number(SESSIONS[0].start.slice(0, 4));
+  const birthYears = Array.from({ length: 8 }, (_, i) => campYear - 2 - i);
 
   function toggle(id: SessionId) {
     setSessionError(false);
@@ -98,7 +101,7 @@ export function InquiryForm({
             <option value="" disabled>
               {lang === "pt" ? "Escolher" : "Select"}
             </option>
-            {Array.from({ length: 8 }, (_, i) => thisYear - 2 - i).map((y) => (
+            {birthYears.map((y) => (
               <option key={y} value={y}>
                 {y}
               </option>

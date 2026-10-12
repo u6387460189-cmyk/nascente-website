@@ -17,7 +17,9 @@ export function Rail({ children, className = "", label }: { children: ReactNode;
       const first = el.firstElementChild as HTMLElement | null;
       if (!first) return;
       const step = first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0");
-      setActive(Math.min(count - 1, Math.round(el.scrollLeft / step)));
+      // The last card can't scroll fully to the start, so treat "scrolled to the end" as the last slide.
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 4;
+      setActive(atEnd ? count - 1 : Math.min(count - 1, Math.round(el.scrollLeft / step)));
     };
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);

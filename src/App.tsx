@@ -48,7 +48,12 @@ export function App() {
     document.getElementById("inquire-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const openPrivacy = () => privacy.current?.showModal();
+  const openPrivacy = () => {
+    const d = privacy.current;
+    if (!d) return;
+    d.showModal();
+    d.scrollTop = 0;
+  };
 
   return (
     <>
@@ -304,9 +309,17 @@ export function App() {
           <h2 id="privacy-title" className="title">
             {t.privacy.title}
           </h2>
-          {t.privacy.body.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
+          {t.privacy.body.map((p, i) => {
+            // Paragraphs open with a short heading sentence ("Who sees it."); set it apart.
+            const cut = p.indexOf(". ");
+            const head = cut > 0 && cut < 28 ? p.slice(0, cut) : "";
+            return (
+              <p key={i} className={i === 0 ? "privacy-lead" : undefined}>
+                {head && <span className="privacy-head">{head}</span>}
+                {head ? p.slice(cut + 2) : p}
+              </p>
+            );
+          })}
           <form method="dialog">
             <button className="btn">{t.privacy.close}</button>
           </form>

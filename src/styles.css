@@ -741,6 +741,90 @@ button {
   font-size: 19px;
 }
 
+/* Nascente: statement, staggered collage, closing paragraph */
+.nascente-head {
+  text-align: center;
+}
+.statement {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.4vw, 66px);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  max-width: 17em;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.statement .w {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  transform: translateY(0.35em);
+  transition: opacity 1s var(--slow), transform 1.2s var(--slow);
+}
+.statement .w-soft {
+  font-style: italic;
+  color: var(--olive);
+}
+.stagger.is-in .w {
+  opacity: 1;
+  transform: none;
+}
+.collage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.15fr) minmax(0, 0.8fr);
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+  margin-top: clamp(64px, 8vw, 120px);
+}
+.collage-a {
+  aspect-ratio: 3 / 4;
+  margin-top: clamp(80px, 12vw, 180px);
+}
+.collage-b {
+  aspect-ratio: 4 / 5;
+}
+.collage-c {
+  aspect-ratio: 4 / 5;
+  margin-top: clamp(160px, 22vw, 320px);
+}
+.nascente-foot {
+  margin-top: clamp(64px, 8vw, 110px);
+  text-align: center;
+}
+.nascente-foot .body {
+  margin: 0 auto;
+  font-size: clamp(19px, 1.6vw, 23px);
+  max-width: 30em;
+}
+@supports (animation-timeline: view()) {
+  .float-slow,
+  .float-fast {
+    animation: float-slow linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  .float-fast {
+    animation-name: float-fast;
+  }
+  @keyframes float-slow {
+    from {
+      transform: translateY(50px);
+    }
+    to {
+      transform: translateY(-50px);
+    }
+  }
+  @keyframes float-fast {
+    from {
+      transform: translateY(120px);
+    }
+    to {
+      transform: translateY(-120px);
+    }
+  }
+}
+
 /* Philosophy */
 .philosophy {
   text-align: center;
@@ -1362,16 +1446,43 @@ fieldset.field {
     bottom: 24px;
   }
 
-  /* Nascente: image leads, text follows */
   .split {
     gap: 40px;
   }
-  #nascente .split-media {
-    order: -1;
-    margin: 0 calc(var(--gutter) * -1);
+
+  /* Nascente: statement, one large image with a small one tucked over it */
+  .statement {
+    font-size: clamp(30px, 8.6vw, 40px);
+    line-height: 1.16;
   }
-  #nascente .frame-tall {
-    aspect-ratio: 5 / 4;
+  .collage {
+    display: block;
+    position: relative;
+    margin-top: 48px;
+    padding-bottom: 56px;
+  }
+  .collage-b {
+    width: 86%;
+    aspect-ratio: 4 / 5;
+  }
+  .collage-a {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 0;
+    width: 44%;
+    margin: 0;
+    aspect-ratio: 3 / 4;
+    z-index: 2;
+    box-shadow: 0 0 0 6px var(--ivory);
+  }
+  .collage-c {
+    display: none;
+  }
+  .nascente-foot {
+    margin-top: 40px;
+  }
+  .nascente-foot .body {
+    text-align: left;
   }
 
   .band {
@@ -1568,6 +1679,7 @@ fieldset.field {
     transition-duration: 0.01ms !important;
   }
   .reveal,
+  .statement .w,
   .hero-content > *,
   .hero-foot {
     opacity: 1;

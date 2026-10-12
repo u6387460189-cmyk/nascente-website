@@ -8,8 +8,8 @@ export type Lang = "en" | "pt";
 
 export const CONTACT = {
   email: "inquiries@nascenteproject.com",
-  phone: "+41 76 685 59 91",
-  phoneHref: "tel:+41766855991",
+  phone: "+420 776 316 388",
+  phoneHref: "tel:+420776316388",
   place: "Comporta, Portugal",
 };
 
@@ -118,8 +118,8 @@ const en = {
   },
   nascente: {
     label: "Nascente",
-    title: "A word for spring.",
-    lead: "Nascente, a word for spring: the quiet, pristine point where water first emerges from the earth.",
+    title: "A word for spring:",
+    lead: "the quiet, pristine point where water first emerges from the earth.",
     body: "Water possesses a natural, unforced duality: the capacity to yield with absolute grace, and the enduring power to shape the landscape around it. Our purpose is not to mold, direct, or force that current, but to protect its origin, keep its banks safe, and give children the freedom to find and appreciate their own flow.",
   },
   philosophy: {
@@ -268,8 +268,8 @@ const pt: Copy = {
   },
   nascente: {
     label: "Nascente",
-    title: "Onde a água nasce.",
-    lead: "Nascente: o ponto calmo e intocado onde a água brota da terra pela primeira vez.",
+    title: "Uma palavra para fonte:",
+    lead: "o ponto calmo e intocado onde a água brota da terra pela primeira vez.",
     body: "A água tem uma dualidade natural e espontânea: a capacidade de ceder com absoluta graça e o poder duradouro de moldar a paisagem à sua volta. O nosso propósito não é moldar, dirigir ou forçar essa corrente, mas proteger a sua origem, manter as suas margens seguras e dar às crianças a liberdade de encontrarem e apreciarem o seu próprio fluxo.",
   },
   philosophy: {

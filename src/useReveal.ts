@@ -3,7 +3,7 @@ import { useEffect } from "react";
 /** Adds `is-in` to every `.reveal` and `.unveil` element as it scrolls into view (once). */
 export function useReveal(deps: unknown[] = []) {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".reveal:not(.is-in), .unveil:not(.is-in)");
+    const els = document.querySelectorAll<HTMLElement>(".reveal:not(.is-in), .unveil:not(.is-in), .stagger:not(.is-in)");
     if (!("IntersectionObserver" in window)) {
       els.forEach((el) => el.classList.add("is-in"));
       return;

@@ -73,17 +73,29 @@ export function App() {
         </section>
 
         {/* Nascente */}
-        <section id="nascente" className="section">
-          <div className="wrap split">
-            <div className="split-text">
-              <p className="label reveal">{t.nascente.label}</p>
-              <h2 className="title reveal">{t.nascente.title}</h2>
-              <p className="lead reveal">{t.nascente.lead}</p>
-              <p className="body reveal">{t.nascente.body}</p>
-            </div>
-            <div className="split-media">
-              <Picture scene="touch" alt="A child's hand resting on the bark of a pine tree" className="frame frame-tall unveil" />
-            </div>
+        <section id="nascente" className="section nascente">
+          <div className="wrap nascente-head">
+            <p className="label reveal">{t.nascente.label}</p>
+            <h2 className="statement stagger">
+              {`${t.nascente.title} ${t.nascente.lead}`.split(" ").map((w, i, all) => (
+                <span
+                  key={i}
+                  className={`w ${i >= t.nascente.title.split(" ").length ? "w-soft" : ""}`}
+                  style={{ transitionDelay: `${i * 45}ms` }}
+                >
+                  {w}
+                  {i < all.length - 1 ? " " : ""}
+                </span>
+              ))}
+            </h2>
+          </div>
+          <div className="wrap collage">
+            <Picture scene="pines" alt="Stone pines against a clear sky" className="frame collage-a unveil float-slow" />
+            <Picture scene="touch" alt="A child's hand resting on the bark of a pine tree" className="frame collage-b unveil" />
+            <Picture scene="grove" alt="A grove of pines above the dunes" className="frame collage-c unveil float-fast" portrait={false} />
+          </div>
+          <div className="wrap-narrow nascente-foot">
+            <p className="body reveal">{t.nascente.body}</p>
           </div>
         </section>
 

@@ -88,7 +88,6 @@ export function Header({ t, lang, onLang }: { t: Copy; lang: Lang; onLang: (l: L
               {t.nav.links.map(([id, label], i) => (
                 <li key={id} style={{ transitionDelay: open ? `${120 + i * 45}ms` : "0ms" }}>
                   <a ref={i === 0 ? firstLink : undefined} href={`#${id}`} onClick={() => setOpen(false)}>
-                    <span className="menu-num">{String(i + 1).padStart(2, "0")}</span>
                     {label}
                   </a>
                 </li>
@@ -96,7 +95,7 @@ export function Header({ t, lang, onLang }: { t: Copy; lang: Lang; onLang: (l: L
             </ol>
           </nav>
           <div className="menu-foot">
-            <span>Comporta · Portugal</span>
+            <span>Comporta, Portugal</span>
             <a href="mailto:info@nascenteproject.com">info@nascenteproject.com</a>
           </div>
         </div>

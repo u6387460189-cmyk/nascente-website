@@ -1,4 +1,4 @@
-/** POST /api/inquire — receives the inquiry form. Logic lives in ./_lib/inquiry.ts. */
+/** POST /api/inquire: receives the inquiry form. Logic lives in ./_lib/inquiry.ts. */
 import { handleInquiry } from "./_lib/inquiry.js";
 
 export async function POST(request: Request): Promise<Response> {

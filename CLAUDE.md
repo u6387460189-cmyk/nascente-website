@@ -8,3 +8,5 @@ Marketing site for Nascente Project (summer day-camp, Comporta). Owner's brief: 
 - Form backend: `api/_lib/inquiry.ts` (tested in `tests/`), table in `supabase/migrations/`. RLS on, no policies — only the service-role key in the Vercel function writes.
 - Keep it cookie-free and analytics-free unless the client asks (no consent banner needed today).
 - Run `npm test && npm run build` before pushing.
+- Client direction (premium, "for rich people who are not dumb"): no em/en dashes in copy (use "to", colons, commas), no decorative dash lines, no numbered lists or arrows, no gimmicks. Quiet effects only (image unveil, slow parallax).
+- Mobile is designed separately, not just stacked: long lists become swipe rails (`src/components/Rail.tsx`), dates become a 3×3 grid, long stories fold behind "Read our story".

@@ -96,7 +96,7 @@ export function InquiryForm({
           <label htmlFor="birthYear">{f.birthYear}</label>
           <select id="birthYear" name="birthYear" required defaultValue="">
             <option value="" disabled>
-              —
+              {lang === "pt" ? "Escolher" : "Select"}
             </option>
             {Array.from({ length: 8 }, (_, i) => thisYear - 2 - i).map((y) => (
               <option key={y} value={y}>
@@ -117,7 +117,7 @@ export function InquiryForm({
             <label key={s.id} className={`session-chip ${selected.includes(s.id) ? "is-on" : ""}`}>
               <input type="checkbox" checked={selected.includes(s.id)} onChange={() => toggle(s.id)} />
               <span className="chip-num">{s.id}</span>
-              <span className="chip-date">{sessionRange(lang, s.start, s.end)}</span>
+              <span className="chip-date">{sessionRange(lang, s.start, s.end, true)}</span>
             </label>
           ))}
         </div>

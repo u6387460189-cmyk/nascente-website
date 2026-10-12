@@ -8,15 +8,15 @@
  */
 
 export const SESSION_LABELS: Record<string, string> = {
-  I: "Session I · July 5 – 9",
-  II: "Session II · July 12 – 16",
-  III: "Session III · July 19 – 23",
-  IV: "Session IV · July 26 – 30",
-  V: "Session V · August 2 – 6",
-  VI: "Session VI · August 9 – 13",
-  VII: "Session VII · August 16 – 20",
-  VIII: "Session VIII · August 23 – 27",
-  IX: "Session IX · August 30 – September 3",
+  I: "Session I, 5 to 9 July",
+  II: "Session II, 12 to 16 July",
+  III: "Session III, 19 to 23 July",
+  IV: "Session IV, 26 to 30 July",
+  V: "Session V, 2 to 6 August",
+  VI: "Session VI, 9 to 13 August",
+  VII: "Session VII, 16 to 20 August",
+  VIII: "Session VIII, 23 to 27 August",
+  IX: "Session IX, 30 August to 3 September",
 };
 
 export interface Inquiry {
@@ -121,13 +121,13 @@ function teamEmail(inq: Inquiry): { subject: string; html: string; text: string 
     ["Email", inq.email],
     ["Child", `${inq.childName} (born ${inq.birthYear})`],
     ["Sessions", inq.sessions.map((s) => SESSION_LABELS[s]).join("\n")],
-    ["Introduced by", inq.introducedBy || "—"],
-    ["Note", inq.note || "—"],
+    ["Introduced by", inq.introducedBy || "Not given"],
+    ["Note", inq.note || "Not given"],
     ["Language", inq.lang === "pt" ? "Portuguese" : "English"],
   ];
   const html =
     `<div style="font-family:Georgia,serif;color:#1f1d18;max-width:560px">` +
-    `<h2 style="font-weight:normal">New inquiry — ${esc(inq.childName)}</h2>` +
+    `<h2 style="font-weight:normal">New inquiry: ${esc(inq.childName)}</h2>` +
     `<table cellpadding="8" style="border-collapse:collapse;font-size:15px">` +
     rows
       .map(
@@ -138,7 +138,7 @@ function teamEmail(inq: Inquiry): { subject: string; html: string; text: string 
       .join("") +
     `</table><p style="color:#69644f;font-size:13px">Reply to this email to answer ${esc(inq.parentName)} directly.</p></div>`;
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");
-  return { subject: `New inquiry — ${inq.childName}, ${inq.sessions.join(", ")}`, html, text };
+  return { subject: `New inquiry: ${inq.childName}, sessions ${inq.sessions.join(", ")}`, html, text };
 }
 
 function parentEmail(inq: Inquiry): { subject: string; html: string; text: string } {

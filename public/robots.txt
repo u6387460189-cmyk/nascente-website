@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nascenteproject.com/sitemap.xml

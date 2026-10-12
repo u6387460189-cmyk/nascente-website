@@ -6,6 +6,7 @@ import { Mark } from "./components/Mark";
 import { Picture } from "./components/Picture";
 import { Rail } from "./components/Rail";
 import { useReveal } from "./useReveal";
+import { useStickyFit } from "./useStickyFit";
 
 /** English lives at "/", Portuguese at "/pt". */
 function langFromPath(): Lang {
@@ -19,9 +20,11 @@ export function App() {
   const [selected, setSelected] = useState<SessionId[]>([]);
   const [storyOpen, setStoryOpen] = useState(false);
   const privacy = useRef<HTMLDialogElement>(null);
+  const inquireIntro = useRef<HTMLDivElement>(null);
   const t = COPY[lang];
 
   useReveal([lang, storyOpen]);
+  useStickyFit(inquireIntro);
 
   useEffect(() => {
     document.documentElement.lang = lang === "pt" ? "pt-PT" : "en";
@@ -228,7 +231,7 @@ export function App() {
         {/* Inquire */}
         <section id="inquire" className="section section-olive">
           <div className="wrap inquire">
-            <div className="inquire-intro">
+            <div className="inquire-intro" ref={inquireIntro}>
               <p className="label label-light reveal">{t.inquire.label}</p>
               <h2 className="title title-light reveal">{t.inquire.title}</h2>
               <ol className="steps">

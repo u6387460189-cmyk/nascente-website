@@ -679,6 +679,21 @@ button {
   }
 }
 
+/* Text set over photographs: a touch heavier, full ivory, softly shadowed */
+.band .body-light,
+.band .lead-light,
+.private-text,
+.stream-text,
+.contact-list {
+  color: var(--ivory);
+  font-weight: 500;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
+}
+.band .label-light,
+.stream-ages {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+
 /* Rail: grid on desktop, swipe row on phones (see Rail.tsx) */
 .rail-dots {
   display: none;
@@ -848,7 +863,14 @@ button {
   align-items: center;
 }
 .band-shade-side {
-  background: linear-gradient(90deg, rgba(24, 22, 17, 0.72) 0%, rgba(24, 22, 17, 0.55) 50%, rgba(24, 22, 17, 0.6) 100%);
+  background: linear-gradient(90deg, rgba(20, 18, 14, 0.8) 0%, rgba(20, 18, 14, 0.62) 50%, rgba(20, 18, 14, 0.66) 100%);
+}
+.private-side {
+  padding: clamp(28px, 3vw, 44px);
+  background: rgba(20, 18, 14, 0.38);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(246, 242, 234, 0.16);
 }
 .private {
   position: relative;
@@ -874,7 +896,7 @@ button {
   margin-bottom: 6px;
 }
 .private-text {
-  color: var(--ivory-soft);
+  color: var(--ivory);
 }
 
 /* Age groups */
@@ -1441,7 +1463,7 @@ fieldset.field {
     padding: 110px 0 90px;
   }
   .band-shade-side {
-    background: linear-gradient(180deg, rgba(24, 22, 17, 0.6) 0%, rgba(24, 22, 17, 0.5) 100%);
+    background: linear-gradient(180deg, rgba(20, 18, 14, 0.68) 0%, rgba(20, 18, 14, 0.58) 100%);
   }
   .private {
     gap: 36px;

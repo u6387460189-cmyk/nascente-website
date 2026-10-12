@@ -10,3 +10,4 @@ Marketing site for Nascente Project (summer day-camp, Comporta). Owner's brief: 
 - Run `npm test && npm run build` before pushing.
 - Client direction (premium, "for rich people who are not dumb"): no em/en dashes in copy (use "to", colons, commas), no decorative dash lines, no numbered lists or arrows, no gimmicks. Quiet effects only (image unveil, slow parallax).
 - Mobile is designed separately, not just stacked: long lists become swipe rails (`src/components/Rail.tsx`), dates become a 3×3 grid, long stories fold behind "Read our story".
+- Page order follows the brief (v2, `materials/NascenteWeb-brief-v2.docx`): Hero → Nascente → Philosophy → Three streams → A day → Private immersions → Meet us → Inquire (form) → Contact. Weekly dates live only in the form. Contact email is inquiries@nascenteproject.com. Hero CTA opens an email, per the brief.

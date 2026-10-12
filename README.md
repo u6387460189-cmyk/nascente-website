@@ -4,7 +4,7 @@ One-page bilingual site (English at `/`, Portuguese at `/pt`) for **Nascente Pro
 a private summer day-camp in Comporta, Portugal. Domain: `nascenteproject.com`.
 
 - **Frontend:** Vite + React + TypeScript, hand-written CSS (`src/styles.css`). Fonts are self-hosted (no Google Fonts, no cookies, no analytics).
-- **Inquiry form:** `POST /api/inquire` (Vercel function) → stores the inquiry in Supabase **and** emails it to `info@nascenteproject.com` via Resend, with a confirmation to the parent. Works if either one is configured.
+- **Inquiry form:** `POST /api/inquire` (Vercel function) → stores the inquiry in Supabase **and** emails it to `inquiries@nascenteproject.com` via Resend, with a confirmation to the parent. Works if either one is configured.
 - **Hosting:** Vercel, auto-deploys from `main`.
 
 ## Editing content

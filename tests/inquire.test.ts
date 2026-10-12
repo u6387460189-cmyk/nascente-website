@@ -7,7 +7,7 @@ const good = {
   email: "ana@example.com",
   childName: "Rita",
   birthYear: 2021,
-  sessions: ["I", "IX", "I", "bogus"],
+  sessions: ["I", "IX", "I", "bogus", "PRIVATE"],
   introducedBy: "",
   note: "Hello <b>there</b>",
   consent: true,
@@ -35,7 +35,7 @@ const fullEnv = {
 test("validate cleans sessions and keeps language", () => {
   const { inquiry, errors } = validate(good, NOW);
   assert.deepEqual(errors, []);
-  assert.deepEqual(inquiry!.sessions, ["I", "IX"]);
+  assert.deepEqual(inquiry!.sessions, ["I", "IX", "PRIVATE"]);
   assert.equal(inquiry!.lang, "pt");
 });
 
@@ -52,7 +52,7 @@ test("stores in Supabase and emails team + parent", async () => {
   assert.equal(db?.body.child_name, "Rita");
   const mails = calls.filter((c) => c.url.includes("resend"));
   assert.equal(mails.length, 2);
-  assert.deepEqual(mails[0].body.to, ["info@nascenteproject.com"]);
+  assert.deepEqual(mails[0].body.to, ["inquiries@nascenteproject.com"]);
   assert.equal(mails[0].body.reply_to, "ana@example.com");
   assert.ok(!mails[0].body.html.includes("<b>there"), "note must be escaped");
   assert.match(mails[1].body.subject, /Recebemos/);

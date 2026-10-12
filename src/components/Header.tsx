@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { Copy, Lang } from "../content";
+import { CONTACT, type Copy, type Lang } from "../content";
 import { Mark } from "./Mark";
 import { Picture } from "./Picture";
 
@@ -96,7 +96,7 @@ export function Header({ t, lang, onLang }: { t: Copy; lang: Lang; onLang: (l: L
           </nav>
           <div className="menu-foot">
             <span>Comporta, Portugal</span>
-            <a href="mailto:info@nascenteproject.com">info@nascenteproject.com</a>
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
           </div>
         </div>
         <div className="menu-photo" aria-hidden="true">

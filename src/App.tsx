@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CONTACT, COPY, PEOPLE, SESSIONS, sessionRange, type Lang, type SessionId } from "./content";
+import { CONTACT, COPY, PEOPLE, type Lang, type SessionId } from "./content";
 import { Header } from "./components/Header";
 import { InquiryForm } from "./components/InquiryForm";
 import { Mark } from "./components/Mark";
@@ -64,7 +64,8 @@ export function App() {
             <p className="label label-light">{t.hero.place}</p>
             <h1 className="hero-title">{t.hero.title}</h1>
             <p className="hero-sub">{t.hero.sub}</p>
-            <a href="#inquire" className="btn btn-light">
+            <p className="hero-limit">{t.hero.limit}</p>
+            <a href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(t.hero.mailSubject)}`} className="btn btn-light">
               {t.hero.cta}
             </a>
           </div>
@@ -87,77 +88,20 @@ export function App() {
         </section>
 
         {/* Philosophy */}
-        <section id="philosophy" className="band">
-          <Picture scene="mist" alt="Umbrella pines in the morning haze" className="band-img drift" />
-          <div className="band-shade" aria-hidden="true" />
-          <div className="band-content wrap-narrow">
-            <p className="label label-light reveal">{t.philosophy.label}</p>
-            <h2 className="title title-light reveal">{t.philosophy.title}</h2>
-            <p className="lead lead-light reveal">{t.philosophy.lead}</p>
-            <p className="body body-light reveal">{t.philosophy.body}</p>
+        <section id="philosophy" className="section section-sand philosophy">
+          <div className="wrap-narrow">
+            <Mark className="philosophy-mark reveal" />
+            <h2 className="title reveal">{t.philosophy.title}</h2>
+            <p className="lead reveal">{t.philosophy.lead}</p>
+            {t.philosophy.body.map((p) => (
+              <p key={p} className="body reveal">
+                {p}
+              </p>
+            ))}
           </div>
         </section>
 
-        {/* A sample day */}
-        <section id="day" className="section">
-          <div className="wrap day">
-            <div className="day-media">
-              <Picture scene="boardwalk" alt="A wooden boardwalk through the dunes" className="frame day-frame unveil" />
-            </div>
-            <div className="day-text">
-              <p className="label reveal">{t.day.label}</p>
-              <h2 className="title reveal">{t.day.title}</h2>
-              <p className="body reveal">{t.day.intro}</p>
-              <Rail className="timeline" label={t.day.title}>
-                {t.day.items.map((it) => (
-                  <li key={it.name} className="moment reveal">
-                    <span className="moment-time">{it.time}</span>
-                    <div>
-                      <p className="moment-part">{it.part}</p>
-                      <h3 className="moment-name">{it.name}</h3>
-                      <p className="moment-text">{it.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </Rail>
-            </div>
-          </div>
-        </section>
-
-        {/* Dates */}
-        <section id="dates" className="section section-sand">
-          <div className="wrap dates">
-            <div className="dates-intro">
-              <p className="label reveal">{t.dates.label}</p>
-              <h2 className="title reveal">{t.dates.title}</h2>
-              <p className="body reveal">{t.dates.text}</p>
-              <Picture scene="pines" alt="Stone pines against a clear sky" className="frame dates-photo unveil" />
-            </div>
-            <div className="dates-list">
-              {t.dates.groups.map((g) => (
-                <div key={g.name} className="date-group">
-                  <h3 className="date-month reveal">{g.name}</h3>
-                  <ul>
-                    {SESSIONS.filter((s) => (g.ids as readonly string[]).includes(s.id)).map((s) => (
-                      <li key={s.id} className="reveal">
-                        <button type="button" className="week" onClick={() => pickSession(s.id)}>
-                          <span className="week-num">{s.id}</span>
-                          <span className="week-range">
-                            <span className="long">{sessionRange(lang, s.start, s.end)}</span>
-                            <span className="short">{sessionRange(lang, s.start, s.end, true)}</span>
-                          </span>
-                          <span className="week-pick">{t.dates.pick}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Age groups */}
+        {/* Three streams */}
         <section id="ages" className="band band-ages">
           <Picture scene="dunes" alt="Ochre sandstone formations by the sea" className="band-img drift" />
           <div className="band-shade band-shade-deep" aria-hidden="true" />
@@ -177,6 +121,57 @@ export function App() {
                 </li>
               ))}
             </Rail>
+          </div>
+        </section>
+
+        {/* A day */}
+        <section id="day" className="section">
+          <div className="wrap day">
+            <div className="day-media">
+              <Picture scene="boardwalk" alt="A wooden boardwalk through the dunes" className="frame day-frame unveil" />
+            </div>
+            <div className="day-text">
+              <p className="label reveal">{t.day.label}</p>
+              <h2 className="title reveal">{t.day.title}</h2>
+              <p className="body reveal">{t.day.intro}</p>
+              <Rail className="timeline" label={t.day.title}>
+                {t.day.items.map((it) => (
+                  <li key={it.name} className="moment reveal">
+                    <span className="moment-time">{it.time}</span>
+                    <div>
+                      <h3 className="moment-name">{it.name}</h3>
+                      <p className="moment-text">{it.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </Rail>
+            </div>
+          </div>
+        </section>
+
+        {/* Private immersions */}
+        <section id="private" className="band band-private">
+          <Picture scene="mist" alt="Umbrella pines in the morning haze" className="band-img drift" />
+          <div className="band-shade band-shade-side" aria-hidden="true" />
+          <div className="wrap private">
+            <div className="private-head">
+              <p className="label label-light reveal">{t.private.label}</p>
+              <h2 className="title title-light reveal">{t.private.title}</h2>
+              <p className="body body-light reveal">{t.private.intro}</p>
+            </div>
+            <div className="private-side">
+              <ul className="private-list">
+                {t.private.items.map((it, i) => (
+                  <li key={it.name} className="reveal" style={{ transitionDelay: `${i * 100}ms` }}>
+                    <h3 className="private-name">{it.name}</h3>
+                    <p className="private-text">{it.text}</p>
+                  </li>
+                ))}
+              </ul>
+              <button type="button" className="btn btn-light reveal" onClick={() => pickSession("PRIVATE")}>
+                {t.private.cta}
+              </button>
+            </div>
           </div>
         </section>
 
@@ -211,7 +206,7 @@ export function App() {
                     {p.photo ? <img src={p.photo} alt={p.name} loading="lazy" /> : <Mark className="person-mark" />}
                   </div>
                   <p className="person-name">{p.name}</p>
-                  {p.line && <p className="person-line">{p.line[lang]}</p>}
+                  <p className="person-line">{p.line[lang]}</p>
                 </li>
               ))}
             </Rail>
@@ -238,6 +233,7 @@ export function App() {
               <p className="steps-note reveal">{t.inquire.note}</p>
             </div>
             <div id="inquire-form" className="form-wrap reveal">
+              <h3 className="form-heading">{t.form.heading}</h3>
               <InquiryForm t={t} lang={lang} selected={selected} setSelected={setSelected} onPrivacy={openPrivacy} />
             </div>
           </div>

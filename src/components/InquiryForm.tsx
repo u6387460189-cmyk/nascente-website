@@ -49,7 +49,7 @@ export function InquiryForm({
           email: data.get("email"),
           childName: data.get("childName"),
           birthYear: Number(data.get("birthYear")),
-          sessions: SESSIONS.map((s) => s.id).filter((id) => selected.includes(id)),
+          sessions: [...SESSIONS.map((s) => s.id), "PRIVATE" as const].filter((id) => selected.includes(id)),
           introducedBy: data.get("introducedBy"),
           note: data.get("note"),
           consent: data.get("consent") === "on",
@@ -120,6 +120,11 @@ export function InquiryForm({
               <span className="chip-date">{sessionRange(lang, s.start, s.end, true)}</span>
             </label>
           ))}
+          <label className={`session-chip chip-private ${selected.includes("PRIVATE") ? "is-on" : ""}`}>
+            <input type="checkbox" checked={selected.includes("PRIVATE")} onChange={() => toggle("PRIVATE")} />
+            <span className="chip-num">{f.private}</span>
+            <span className="chip-date">{f.privateNote}</span>
+          </label>
         </div>
       </fieldset>
 

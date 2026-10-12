@@ -7,7 +7,7 @@
 export type Lang = "en" | "pt";
 
 export const CONTACT = {
-  email: "info@nascenteproject.com",
+  email: "inquiries@nascenteproject.com",
   phone: "+41 76 685 59 91",
   phoneHref: "tel:+41766855991",
   place: "Comporta, Portugal",
@@ -26,14 +26,14 @@ export const SESSIONS = [
   { id: "IX", start: "2027-08-30", end: "2027-09-03" },
 ] as const;
 
-export type SessionId = (typeof SESSIONS)[number]["id"];
+export type SessionId = (typeof SESSIONS)[number]["id"] | "PRIVATE";
 
 const MONTHS = {
   en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   pt: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"],
 };
 
-/** "5 to 9 July" / "5 a 9 de julho". `short` abbreviates months for tight spaces. */
+/** "July 5 to 9" / "5 a 9 de julho". `short` abbreviates months for tight spaces. */
 export function sessionRange(lang: Lang, start: string, end: string, short = false): string {
   const [, sm, sd] = start.split("-").map(Number);
   const [, em, ed] = end.split("-").map(Number);
@@ -42,25 +42,55 @@ export function sessionRange(lang: Lang, start: string, end: string, short = fal
     return short ? name.slice(0, 3) : name;
   };
   if (lang === "en") {
-    return sm === em ? `${sd} to ${ed} ${m(sm)}` : `${sd} ${m(sm)} to ${ed} ${m(em)}`;
+    return sm === em ? `${m(sm)} ${sd} to ${ed}` : `${m(sm)} ${sd} to ${m(em)} ${ed}`;
   }
   const de = short ? "" : "de ";
   return sm === em ? `${sd} a ${ed} ${de}${m(sm)}` : `${sd} ${de}${m(sm)} a ${ed} ${de}${m(em)}`;
 }
 
-export const PEOPLE = [
-  { name: "Klara" },
-  { name: "Viktor" },
-  { name: "Vitek" },
-  { name: "Vasek" },
-  { name: "Viky" },
-] as { name: string; photo?: string; line?: Record<Lang, string> }[];
+export const PEOPLE: { name: string; photo?: string; line: Record<Lang, string> }[] = [
+  {
+    name: "Klara",
+    line: {
+      en: "Weaving five years of Alpine outdoor program leadership into the sensory and artistic vision of Nascente.",
+      pt: "Traz cinco anos a liderar programas ao ar livre nos Alpes para a visão sensorial e artística da Nascente.",
+    },
+  },
+  {
+    name: "Viktor",
+    line: {
+      en: "Anchoring the wild magic with precision logistics, seamless operational design, and structural safety.",
+      pt: "Ancora a magia selvagem com logística precisa, um desenho operacional impecável e segurança estrutural.",
+    },
+  },
+  {
+    name: "Vitek",
+    line: {
+      en: "Grounding daily wilderness adventures in psychological resilience and mindful environmental exploration.",
+      pt: "Assenta as aventuras diárias na natureza na resiliência psicológica e numa exploração consciente do meio natural.",
+    },
+  },
+  {
+    name: "Vasek",
+    line: {
+      en: "Translating complex natural landscapes into intuitive, hands-on architectural and building experiences for early ages.",
+      pt: "Traduz paisagens naturais complexas em experiências intuitivas e práticas de arquitetura e construção para os mais pequenos.",
+    },
+  },
+  {
+    name: "Viky",
+    line: {
+      en: "Guiding the youngest streams with a deep foundation in early childhood independence and empathetic mentorship.",
+      pt: "Guia as correntes mais novas com uma base sólida na independência da primeira infância e numa mentoria empática.",
+    },
+  },
+];
 
 const en = {
   meta: {
-    title: "Nascente Project · A private summer day-camp in Comporta",
+    title: "Nascente Project · A private day-camp in Comporta",
     description:
-      "Nascente is a private summer day-camp in Comporta, Portugal. Entirely outdoor, tactile learning among the dunes and pine forests. Nine weekly sessions, 5 July to 3 September 2027.",
+      "Nascente is a private, screen-free summer day-camp spent entirely outdoors among the dunes and pine forests of Comporta, Portugal. July 5 to September 3, 2027. Limited to 24 children a week.",
   },
   nav: {
     menu: "Menu",
@@ -69,108 +99,117 @@ const en = {
     links: [
       ["nascente", "Nascente"],
       ["philosophy", "Philosophy"],
+      ["ages", "Three streams"],
       ["day", "A day at Nascente"],
-      ["dates", "Dates"],
-      ["ages", "Age groups"],
-      ["people", "The people"],
-      ["inquire", "Inquire"],
+      ["private", "Private immersions"],
+      ["people", "Meet us"],
+      ["inquire", "Request an invitation"],
       ["contact", "Contact"],
     ] as [string, string][],
   },
   hero: {
     place: "Comporta, Portugal",
     title: "Where it all begins.",
-    sub: "A private summer day-camp among the dunes and pine forests of Comporta.",
-    dates: "5 July to 3 September 2027",
-    cta: "Inquire a place",
+    sub: "A private day-camp in Comporta, Portugal.",
+    limit: "Weekly invitations are strictly limited to 24 children.",
+    dates: "July 5 to September 3, 2027",
+    cta: "Request an invitation",
+    mailSubject: "Invitation request",
   },
   nascente: {
     label: "Nascente",
     title: "A word for spring.",
     lead: "Nascente, a word for spring: the quiet, pristine point where water first emerges from the earth.",
-    body: "Water possesses a natural, unforced duality: the capacity to yield with absolute grace, and the enduring power to shape the landscape around it. Our purpose is not to mold, direct, or force that current, but to protect its origin and give the children freedom to find and appreciate their own flow.",
+    body: "Water possesses a natural, unforced duality: the capacity to yield with absolute grace, and the enduring power to shape the landscape around it. Our purpose is not to mold, direct, or force that current, but to protect its origin, keep its banks safe, and give children the freedom to find and appreciate their own flow.",
   },
   philosophy: {
-    label: "Our philosophy",
     title: "The simple, wild magic of childhood.",
-    lead: "We believe true luxury is space, time, and the freedom to explore.",
-    body: "Set among the dunes and pine forests, Nascente protects the simple, wild magic of childhood through entirely outdoor, tactile learning. We provide a meticulously prepared environment where children are not passively entertained, but captivated by beautiful narratives, giving them the quiet space to let the natural world become a part of their own story.",
-  },
-  day: {
-    label: "A sample day",
-    title: "How a day flows.",
-    intro:
-      "Every day follows a deliberate, gentle rhythm to anchor the nervous system, while leaving wide, open space for spontaneous discovery.",
-    items: [
-      { time: "9:30", part: "Arrival", name: "The Slow Start", text: "A communal grounding circle to transition from the rush of the outside world into the quiet of nature." },
-      { time: "10:00", part: "Morning", name: "The Coastal Atelier", text: "Immersive, tactile work. Botanical design, structural building, and navigating the natural environment." },
-      { time: "12:00", part: "Midday", name: "The Communal Table", text: "A shared, nourishing lunch and quiet rest with a book in the shade of the pines." },
-      { time: "13:00", part: "Afternoon", name: "The Narrative", text: "Adventures driven by the overarching story of the summer." },
-      { time: "15:30", part: "Closing", name: "The Anchor", text: "Our closing circle. A moment to recall the day and settle before returning home." },
+    lead: "Nascente is a private, screen-free summer camp, spent entirely outdoors among the dunes and pine forests of Comporta.",
+    body: [
+      "We believe true luxury is space, time, and the freedom to explore, laugh, and play. Here, children are not entertained but captivated: by beautiful stories, by the sand beneath their feet, by immersive adventures.",
+      "Resilience, confidence, and independence grow the way everything does in nature: slowly, through trying, failing, and trying again. Children move with boundless energy, and their laughter fills the pines with pure, unfettered joy.",
     ],
-  },
-  dates: {
-    label: "Summer 2027",
-    title: "Nine weeks of summer.",
-    text: "Each session runs Monday to Friday, 9:30 to 15:30. We welcome twenty-four children a week, so places are limited.",
-    groups: [
-      { name: "July", ids: ["I", "II", "III", "IV"] },
-      { name: "August and September", ids: ["V", "VI", "VII", "VIII", "IX"] },
-    ],
-    pick: "Inquire",
-    cta: "Inquire a place",
   },
   ages: {
     label: "Age groups",
     title: "Three streams.",
     intro: "Every child joins the stream that fits their age, then flows on to the next as they grow.",
     items: [
-      { name: "Nascent", ages: "Ages 3 & 4", text: "Gentle, sensory days close to their mentor." },
-      { name: "Brook", ages: "Ages 5 & 6", text: "Curious little explorers, building and discovering." },
-      { name: "River", ages: "Ages 7 & 8", text: "Bigger adventures, teamwork and making." },
+      { name: "Spring", ages: "Ages 3 and 4", text: "Gentle, sensory days close to their mentor." },
+      { name: "Brook", ages: "Ages 5 and 6", text: "Curious little explorers, building and discovering." },
+      { name: "River", ages: "Ages 7 and 8", text: "Bigger adventures, teamwork and making." },
     ],
+  },
+  day: {
+    label: "A day at Nascente",
+    title: "How a day glides.",
+    intro:
+      "Every day follows a steady rhythm and a few steadfast boundaries, with one mentor for every four children, always within reach, because children are only truly free when they feel safe. Within it, there is wide, open space for spontaneous discovery, surprise, and fun.",
+    items: [
+      { time: "09:30", name: "The Collection", text: "Your child is collected from your villa gate by their mentor. A gentle, screen-free transition from home to the wild." },
+      { time: "10:00", name: "The Morning", text: "Art, exploration, and play. Time to create, wander, and move among the dunes and pines." },
+      { time: "12:30", name: "The Experience Table", text: "A shared, nourishing farm-to-table lunch in the shade of the pines, followed by a quiet siesta with a book to rest and recharge." },
+      { time: "13:30", name: "The Story", text: "The afternoon belongs to the story of the summer. Children step into its adventure and become part of it." },
+      { time: "16:00", name: "The Return", text: "A closing circle to settle the day and share its discoveries, then home to you, ready for family time." },
+    ],
+  },
+  private: {
+    label: "Beyond the season",
+    title: "Private wilderness immersions.",
+    intro:
+      "For families seeking a solitary connection to the source, we curate bespoke itineraries outside of our weekly season. Whether it is a single day of guided tracking or a dedicated week-long mentorship for siblings, we design the rhythm entirely around your family's flow.",
+    items: [
+      { name: "The Shadow Mentor", text: "A dedicated 1:1 mentor assigned exclusively to your child." },
+      { name: "The Custom Path", text: "Curated expeditions focused on specific interests, from marine biology to wild artisanry." },
+      { name: "The Privacy", text: "Peace of mind for families requiring total discretion." },
+    ],
+    cta: "Request a private immersion",
   },
   people: {
     label: "The people",
     title: "Meet us.",
-    lead: "Our vision for Nascente is rooted in our own childhood, balancing the capable autonomy of our early Montessori education with the absolute magic of our grandmother's storytelling.",
+    lead: "Nascente began in our own childhood.",
     body: [
-      "The moment her stories ended, we would run straight into the woods, turning the forest into a living, breathing extension of our imagination.",
-      "We built Nascente to pass on that exact same gift: a secure, magical environment where children are trusted with their independence, captivated by beautiful narratives, and given the wild freedom to let nature become part of their own story.",
+      "We grew up between two gifts: the quiet independence of our early Montessori years, and our grandmother's storytelling. The moment her stories ended, we would run straight into the woods and play them out, until the forest felt like a living part of the tale.",
+      "We built Nascente to pass that gift on: a safe, magical place where children are trusted with their independence, and where nature and magic become part of their own story.",
     ],
     more: "Read our story",
   },
   inquire: {
     label: "Inquire",
-    title: "Three steps.",
+    title: "Three steps to the source.",
     steps: [
-      { title: "Fill the short form.", text: "Tell us about your child." },
+      { title: "The registry.", text: "Complete the short profile below to introduce your child." },
       { title: "Get to know each other.", text: "A private conversation to see whether Nascente is right for your family, and to answer any questions you might have." },
-      { title: "Welcome.", text: "We confirm your place and begin preparing the summer." },
+      { title: "The invitation.", text: "Upon acceptance, we confirm your placement." },
     ],
-    note: "We take twenty-four children a week and review each application personally.",
+    note: "We accept only twenty-four children a week and review each application personally.",
   },
   form: {
+    heading: "Request an invitation",
     parent: "Parent or guardian",
     email: "Email",
     child: "Child's name",
     birthYear: "Year of birth",
-    sessions: "Sessions",
-    sessionsHint: "Choose one or more weeks.",
+    sessions: "Requested service",
+    sessionsHint: "Choose one or more weeks, or a private immersion.",
+    session: "Session",
+    private: "Private immersion",
+    privateNote: "Dates arranged with you",
     introducedBy: "Introduced by",
     optional: "optional",
-    note: "A brief note",
+    note: "A note",
     notePlaceholder: "Anything you would like us to know.",
     consentBefore: "I have read the ",
     consentLink: "privacy notice",
-    consentAfter: " and agree to Nascente keeping these details to respond to my inquiry.",
-    submit: "Send inquiry",
+    consentAfter: " and agree to Nascente keeping these details to respond to my request.",
+    submit: "Request an invitation",
     sending: "Sending",
     successTitle: "Thank you.",
-    successText: "We have received your inquiry and will be in touch personally, very soon.",
-    another: "Send another inquiry",
-    errorSessions: "Please choose at least one week.",
-    error: "We couldn't send your inquiry. Please try again, or write to us at",
+    successText: "We have received your request and will be in touch personally, very soon.",
+    another: "Send another request",
+    errorSessions: "Please choose at least one week or a private immersion.",
+    error: "We couldn't send your request. Please try again, or write to us at",
   },
   contact: {
     label: "Contact",
@@ -184,12 +223,12 @@ const en = {
     title: "Privacy notice",
     close: "Close",
     body: [
-      "Nascente Project is responsible for the personal data you share through this website. You can reach us at info@nascenteproject.com.",
-      "What we collect. When you send an inquiry we receive what you enter in the form: your name and email, your child's name and year of birth, the weeks you are interested in, who introduced you, and your note.",
-      "Why. Only to respond to your inquiry, arrange a conversation and, if you choose to join, manage your child's place. The legal basis is your consent and the steps you ask us to take before an agreement.",
-      "Where it is kept. Inquiries are stored in a secure database hosted in the European Union (Supabase) and delivered to our inbox by email (Resend). We never sell or share your data for marketing.",
-      "How long. We keep inquiries for up to 24 months, unless your child joins Nascente, in which case we keep what is needed for the summer and our legal obligations.",
-      "Your rights. You can ask to see, correct or delete your data, or withdraw your consent, at any time by writing to info@nascenteproject.com. You may also lodge a complaint with the Portuguese data protection authority (CNPD).",
+      "Nascente Project is responsible for the personal data you share through this website. You can reach us at inquiries@nascenteproject.com.",
+      "What we collect. When you send a request we receive what you enter in the form: your name and email, your child's name and year of birth, the service you are interested in, who introduced you, and your note.",
+      "Why. Only to respond to your request, arrange a conversation and, if you choose to join, manage your child's place. The legal basis is your consent and the steps you ask us to take before an agreement.",
+      "Where it is kept. Requests are stored in a secure database hosted in the European Union (Supabase) and delivered to our inbox by email (Resend). We never sell or share your data for marketing.",
+      "How long. We keep requests for up to 24 months, unless your child joins Nascente, in which case we keep what is needed for the summer and our legal obligations.",
+      "Your rights. You can ask to see, correct or delete your data, or withdraw your consent, at any time by writing to inquiries@nascenteproject.com. You may also lodge a complaint with the Portuguese data protection authority (CNPD).",
       "This website uses no tracking cookies and no analytics. Fonts are served from our own domain.",
     ],
   },
@@ -199,118 +238,127 @@ export type Copy = typeof en;
 
 const pt: Copy = {
   meta: {
-    title: "Nascente Project · Campo de férias de verão privado em Comporta",
+    title: "Nascente Project · Campo de férias privado em Comporta",
     description:
-      "A Nascente é um campo de férias de verão privado em Comporta, Portugal. Aprendizagem tátil, inteiramente ao ar livre, entre dunas e pinhais. Nove sessões semanais, de 5 de julho a 3 de setembro de 2027.",
+      "A Nascente é um campo de férias de verão privado e sem ecrãs, passado inteiramente ao ar livre entre as dunas e os pinhais de Comporta. De 5 de julho a 3 de setembro de 2027. Limitado a 24 crianças por semana.",
   },
   nav: {
     menu: "Menu",
     close: "Fechar",
-    inquire: "Pedir vaga",
+    inquire: "Pedir convite",
     links: [
       ["nascente", "Nascente"],
       ["philosophy", "Filosofia"],
+      ["ages", "Três correntes"],
       ["day", "Um dia na Nascente"],
-      ["dates", "Datas"],
-      ["ages", "Idades"],
-      ["people", "As pessoas"],
-      ["inquire", "Pedir vaga"],
+      ["private", "Imersões privadas"],
+      ["people", "Conheça-nos"],
+      ["inquire", "Pedir um convite"],
       ["contact", "Contacto"],
     ],
   },
   hero: {
     place: "Comporta, Portugal",
     title: "Onde tudo começa.",
-    sub: "Um campo de férias de verão privado, entre as dunas e os pinhais de Comporta.",
+    sub: "Um campo de férias privado em Comporta, Portugal.",
+    limit: "Os convites semanais estão estritamente limitados a 24 crianças.",
     dates: "De 5 de julho a 3 de setembro de 2027",
-    cta: "Pedir uma vaga",
+    cta: "Pedir um convite",
+    mailSubject: "Pedido de convite",
   },
   nascente: {
     label: "Nascente",
     title: "Onde a água nasce.",
     lead: "Nascente: o ponto calmo e intocado onde a água brota da terra pela primeira vez.",
-    body: "A água tem uma dualidade natural e espontânea: a capacidade de ceder com absoluta graça e o poder duradouro de moldar a paisagem à sua volta. O nosso propósito não é moldar, dirigir ou forçar essa corrente, mas proteger a sua origem e dar às crianças a liberdade de encontrarem e apreciarem o seu próprio fluxo.",
+    body: "A água tem uma dualidade natural e espontânea: a capacidade de ceder com absoluta graça e o poder duradouro de moldar a paisagem à sua volta. O nosso propósito não é moldar, dirigir ou forçar essa corrente, mas proteger a sua origem, manter as suas margens seguras e dar às crianças a liberdade de encontrarem e apreciarem o seu próprio fluxo.",
   },
   philosophy: {
-    label: "A nossa filosofia",
     title: "A magia simples e selvagem da infância.",
-    lead: "Acreditamos que o verdadeiro luxo é espaço, tempo e liberdade para explorar.",
-    body: "Entre dunas e pinhais, a Nascente protege a magia simples e selvagem da infância através de uma aprendizagem tátil, inteiramente ao ar livre. Criamos um ambiente meticulosamente preparado, onde as crianças não são entretidas de forma passiva, mas cativadas por narrativas bonitas, que lhes dão o espaço tranquilo para que o mundo natural se torne parte da sua própria história.",
-  },
-  day: {
-    label: "Um dia na Nascente",
-    title: "Como flui um dia.",
-    intro:
-      "Cada dia segue um ritmo deliberado e suave, que ancora o sistema nervoso e deixa espaço amplo e aberto para a descoberta espontânea.",
-    items: [
-      { time: "9:30", part: "Chegada", name: "O Começo Lento", text: "Um círculo em comunidade para fazer a transição da pressa do mundo lá fora para a quietude da natureza." },
-      { time: "10:00", part: "Manhã", name: "O Ateliê Costeiro", text: "Trabalho imersivo e tátil. Design botânico, construção e orientação no ambiente natural." },
-      { time: "12:00", part: "Meio-dia", name: "A Mesa Comum", text: "Um almoço partilhado e nutritivo, e um descanso tranquilo com um livro à sombra dos pinheiros." },
-      { time: "13:00", part: "Tarde", name: "A Narrativa", text: "Aventuras guiadas pela grande história do verão." },
-      { time: "15:30", part: "Encerramento", name: "A Âncora", text: "O nosso círculo de encerramento. Um momento para recordar o dia e serenar antes de regressar a casa." },
+    lead: "A Nascente é um campo de férias de verão privado e sem ecrãs, passado inteiramente ao ar livre entre as dunas e os pinhais de Comporta.",
+    body: [
+      "Acreditamos que o verdadeiro luxo é espaço, tempo e liberdade para explorar, rir e brincar. Aqui, as crianças não são entretidas, mas cativadas: por histórias bonitas, pela areia debaixo dos pés, por aventuras imersivas.",
+      "A resiliência, a confiança e a independência crescem como tudo na natureza: devagar, a tentar, a falhar e a tentar de novo. As crianças movem-se com uma energia sem limites, e o seu riso enche os pinhais de uma alegria pura e livre.",
     ],
-  },
-  dates: {
-    label: "Verão de 2027",
-    title: "Nove semanas de verão.",
-    text: "Cada sessão decorre de segunda a sexta, das 9:30 às 15:30. Recebemos vinte e quatro crianças por semana, pelo que as vagas são limitadas.",
-    groups: [
-      { name: "Julho", ids: ["I", "II", "III", "IV"] },
-      { name: "Agosto e setembro", ids: ["V", "VI", "VII", "VIII", "IX"] },
-    ],
-    pick: "Pedir vaga",
-    cta: "Pedir uma vaga",
   },
   ages: {
     label: "Idades",
     title: "Três correntes.",
     intro: "Cada criança junta-se à corrente que corresponde à sua idade e segue para a próxima à medida que cresce.",
     items: [
-      { name: "Nascent", ages: "3 e 4 anos", text: "Dias suaves e sensoriais, perto do seu mentor." },
+      { name: "Spring", ages: "3 e 4 anos", text: "Dias suaves e sensoriais, perto do seu mentor." },
       { name: "Brook", ages: "5 e 6 anos", text: "Pequenos exploradores curiosos, a construir e a descobrir." },
       { name: "River", ages: "7 e 8 anos", text: "Aventuras maiores, trabalho em equipa e criação." },
     ],
   },
+  day: {
+    label: "Um dia na Nascente",
+    title: "Como desliza um dia.",
+    intro:
+      "Cada dia segue um ritmo constante e alguns limites firmes, com um mentor para cada quatro crianças, sempre por perto, porque as crianças só são verdadeiramente livres quando se sentem seguras. Dentro desse ritmo, há espaço amplo e aberto para a descoberta espontânea, a surpresa e a diversão.",
+    items: [
+      { time: "09:30", name: "A Recolha", text: "O mentor vai buscar a criança ao portão da vossa villa. Uma transição suave e sem ecrãs, de casa para a natureza." },
+      { time: "10:00", name: "A Manhã", text: "Arte, exploração e brincadeira. Tempo para criar, deambular e mover-se entre as dunas e os pinheiros." },
+      { time: "12:30", name: "A Mesa da Experiência", text: "Um almoço partilhado e nutritivo, do campo para a mesa, à sombra dos pinheiros, seguido de uma sesta tranquila com um livro para descansar e recuperar energias." },
+      { time: "13:30", name: "A História", text: "A tarde pertence à história do verão. As crianças entram na sua aventura e tornam-se parte dela." },
+      { time: "16:00", name: "O Regresso", text: "Um círculo de encerramento para assentar o dia e partilhar as suas descobertas, e depois de volta a casa, prontas para o tempo em família." },
+    ],
+  },
+  private: {
+    label: "Para além da temporada",
+    title: "Imersões privadas na natureza.",
+    intro:
+      "Para famílias que procuram uma ligação íntima à origem, criamos itinerários à medida fora da nossa temporada semanal. Seja um único dia de rastreio guiado ou uma semana inteira de mentoria dedicada para irmãos, desenhamos o ritmo inteiramente em torno do fluxo da sua família.",
+    items: [
+      { name: "O Mentor Sombra", text: "Um mentor dedicado, atribuído exclusivamente à sua criança." },
+      { name: "O Caminho à Medida", text: "Expedições pensadas em torno de interesses específicos, da biologia marinha ao artesanato na natureza." },
+      { name: "A Privacidade", text: "Tranquilidade para famílias que exigem total discrição." },
+    ],
+    cta: "Pedir uma imersão privada",
+  },
   people: {
     label: "As pessoas",
     title: "Conheça-nos.",
-    lead: "A nossa visão para a Nascente tem raízes na nossa própria infância, equilibrando a autonomia confiante da nossa educação Montessori com a magia absoluta das histórias da nossa avó.",
+    lead: "A Nascente começou na nossa própria infância.",
     body: [
-      "Assim que as suas histórias terminavam, corríamos diretamente para o bosque, transformando a floresta numa extensão viva da nossa imaginação.",
-      "Criámos a Nascente para transmitir esse mesmo presente: um ambiente seguro e mágico, onde se confia às crianças a sua independência, onde são cativadas por narrativas bonitas e têm a liberdade selvagem de deixar a natureza tornar-se parte da sua própria história.",
+      "Crescemos entre dois presentes: a independência tranquila dos nossos primeiros anos Montessori e as histórias da nossa avó. Assim que as suas histórias terminavam, corríamos diretamente para o bosque e vivíamo-las, até a floresta parecer uma parte viva do conto.",
+      "Criámos a Nascente para passar esse presente adiante: um lugar seguro e mágico, onde se confia às crianças a sua independência e onde a natureza e a magia se tornam parte da sua própria história.",
     ],
     more: "Ler a nossa história",
   },
   inquire: {
-    label: "Pedir vaga",
-    title: "Três passos.",
+    label: "Pedir convite",
+    title: "Três passos até à origem.",
     steps: [
-      { title: "Preencha o breve formulário.", text: "Fale-nos sobre a sua criança." },
+      { title: "O registo.", text: "Preencha o breve perfil abaixo para nos apresentar a sua criança." },
       { title: "Conhecemo-nos.", text: "Uma conversa privada para perceber se a Nascente é a escolha certa para a sua família e responder a todas as suas perguntas." },
-      { title: "Bem-vindos.", text: "Confirmamos a vaga e começamos a preparar o verão." },
+      { title: "O convite.", text: "Após aceitação, confirmamos a vaga." },
     ],
-    note: "Recebemos vinte e quatro crianças por semana e analisamos cada pedido pessoalmente.",
+    note: "Aceitamos apenas vinte e quatro crianças por semana e analisamos cada pedido pessoalmente.",
   },
   form: {
+    heading: "Pedir um convite",
     parent: "Pai, mãe ou encarregado de educação",
     email: "Email",
     child: "Nome da criança",
     birthYear: "Ano de nascimento",
-    sessions: "Sessões",
-    sessionsHint: "Escolha uma ou mais semanas.",
+    sessions: "Serviço pretendido",
+    sessionsHint: "Escolha uma ou mais semanas, ou uma imersão privada.",
+    session: "Sessão",
+    private: "Imersão privada",
+    privateNote: "Datas combinadas consigo",
     introducedBy: "Recomendado por",
     optional: "opcional",
-    note: "Uma breve nota",
+    note: "Uma nota",
     notePlaceholder: "Algo que gostaria que soubéssemos.",
     consentBefore: "Li o ",
     consentLink: "aviso de privacidade",
     consentAfter: " e aceito que a Nascente guarde estes dados para responder ao meu pedido.",
-    submit: "Enviar pedido",
+    submit: "Pedir um convite",
     sending: "A enviar",
     successTitle: "Obrigado.",
     successText: "Recebemos o seu pedido e entraremos em contacto pessoalmente, muito em breve.",
     another: "Enviar outro pedido",
-    errorSessions: "Escolha pelo menos uma semana.",
+    errorSessions: "Escolha pelo menos uma semana ou uma imersão privada.",
     error: "Não foi possível enviar o seu pedido. Tente novamente ou escreva-nos para",
   },
   contact: {
@@ -325,12 +373,12 @@ const pt: Copy = {
     title: "Aviso de privacidade",
     close: "Fechar",
     body: [
-      "A Nascente Project é responsável pelos dados pessoais que partilha através deste site. Pode contactar-nos através de info@nascenteproject.com.",
-      "O que recolhemos. Quando envia um pedido, recebemos o que escreve no formulário: o seu nome e email, o nome e ano de nascimento da criança, as semanas que lhe interessam, quem o recomendou e a sua nota.",
+      "A Nascente Project é responsável pelos dados pessoais que partilha através deste site. Pode contactar-nos através de inquiries@nascenteproject.com.",
+      "O que recolhemos. Quando envia um pedido, recebemos o que escreve no formulário: o seu nome e email, o nome e ano de nascimento da criança, o serviço que lhe interessa, quem o recomendou e a sua nota.",
       "Para quê. Apenas para responder ao seu pedido, combinar uma conversa e, se decidir juntar-se a nós, gerir a vaga da criança. A base legal é o seu consentimento e as diligências que nos pede antes de um acordo.",
       "Onde são guardados. Os pedidos ficam guardados numa base de dados segura alojada na União Europeia (Supabase) e são entregues na nossa caixa de correio por email (Resend). Nunca vendemos nem partilhamos os seus dados para marketing.",
       "Durante quanto tempo. Guardamos os pedidos até 24 meses, salvo se a criança se juntar à Nascente; nesse caso, guardamos o necessário para o verão e para as nossas obrigações legais.",
-      "Os seus direitos. Pode pedir para consultar, corrigir ou apagar os seus dados, ou retirar o seu consentimento, a qualquer momento, escrevendo para info@nascenteproject.com. Pode também apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD).",
+      "Os seus direitos. Pode pedir para consultar, corrigir ou apagar os seus dados, ou retirar o seu consentimento, a qualquer momento, escrevendo para inquiries@nascenteproject.com. Pode também apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD).",
       "Este site não utiliza cookies de rastreio nem ferramentas de análise. As fontes são servidas a partir do nosso próprio domínio.",
     ],
   },

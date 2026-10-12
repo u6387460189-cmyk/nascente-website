@@ -558,8 +558,14 @@ button {
 .hero-sub {
   font-size: clamp(20px, 1.8vw, 25px);
   max-width: 24em;
-  margin-bottom: 40px;
+  margin-bottom: 8px;
   text-wrap: balance;
+}
+.hero-limit {
+  font-style: italic;
+  font-size: clamp(17px, 1.3vw, 19px);
+  opacity: 0.85;
+  margin-bottom: 40px;
 }
 .hero-foot {
   position: absolute;
@@ -735,84 +741,56 @@ button {
   font-size: 19px;
 }
 
-/* Dates */
-.dates {
+/* Philosophy */
+.philosophy {
+  text-align: center;
+}
+.philosophy-mark {
+  width: 26px;
+  margin: 0 auto 40px;
+  color: var(--olive);
+}
+.philosophy .lead,
+.philosophy .body {
+  margin-left: auto;
+  margin-right: auto;
+}
+.philosophy .lead {
+  margin-bottom: 28px;
+}
+
+/* Private immersions */
+.band-private {
+  align-items: center;
+}
+.band-shade-side {
+  background: linear-gradient(90deg, rgba(24, 22, 17, 0.72) 0%, rgba(24, 22, 17, 0.55) 50%, rgba(24, 22, 17, 0.6) 100%);
+}
+.private {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(48px, 8vw, 140px);
-  align-items: start;
+  align-items: end;
 }
-.dates-intro {
-  position: sticky;
-  top: calc(var(--header-h) + 40px);
+.private-list {
+  border-top: 1px solid var(--line-light);
+  margin-bottom: 40px;
 }
-.dates-photo {
-  margin-top: 44px;
-  aspect-ratio: 5 / 4;
+.private-list li {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line-light);
 }
-.date-group + .date-group {
-  margin-top: 56px;
-}
-.date-month {
+.private-name {
   font-family: var(--display);
   font-style: italic;
   font-weight: 400;
   font-size: clamp(24px, 2.2vw, 32px);
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
+  line-height: 1.15;
+  margin-bottom: 6px;
 }
-.week {
-  position: relative;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3.6em 1fr auto;
-  align-items: baseline;
-  gap: 20px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-  text-align: left;
-}
-.week::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  height: 1px;
-  width: 100%;
-  background: var(--ink);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.7s var(--slow);
-}
-.week:hover::after,
-.week:focus-visible::after {
-  transform: scaleX(1);
-}
-.week-num {
-  font-family: var(--display);
-  font-size: clamp(22px, 2vw, 28px);
-  color: var(--olive);
-  line-height: 1;
-}
-.week-range {
-  font-size: clamp(21px, 1.8vw, 25px);
-}
-.week-range .short {
-  display: none;
-}
-.week-pick {
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--olive);
-  opacity: 0;
-  transition: opacity 0.5s var(--ease);
-}
-.week:hover .week-pick,
-.week:focus-visible .week-pick {
-  opacity: 1;
+.private-text {
+  color: var(--ivory-soft);
 }
 
 /* Age groups */
@@ -1107,6 +1085,27 @@ fieldset.field {
   font-size: 17px;
   line-height: 1.25;
 }
+.chip-private {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.chip-private .chip-num {
+  font-style: italic;
+}
+.chip-private .chip-date {
+  opacity: 0.75;
+}
+.form-heading {
+  font-family: var(--display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.1;
+  margin-bottom: 36px;
+}
 .consent {
   display: flex;
   gap: 14px;
@@ -1263,12 +1262,11 @@ fieldset.field {
 @media (max-width: 960px) {
   .split,
   .day,
-  .dates,
+  .private,
   .inquire {
     grid-template-columns: minmax(0, 1fr);
   }
   .day-media,
-  .dates-intro,
   .inquire-intro {
     position: static;
   }
@@ -1323,7 +1321,40 @@ fieldset.field {
 
   .hero-sub {
     font-size: 19px;
-    margin-bottom: 32px;
+  }
+  .hero-limit {
+    font-size: 16px;
+    max-width: 20em;
+    margin-bottom: 30px;
+  }
+  .philosophy {
+    text-align: left;
+  }
+  .philosophy-mark {
+    margin: 0 0 32px;
+  }
+  .philosophy .lead,
+  .philosophy .body {
+    margin-left: 0;
+  }
+  .band-private {
+    padding: 110px 0 90px;
+  }
+  .band-shade-side {
+    background: linear-gradient(180deg, rgba(24, 22, 17, 0.6) 0%, rgba(24, 22, 17, 0.5) 100%);
+  }
+  .private {
+    gap: 36px;
+  }
+  .private-list li {
+    padding: 20px 0;
+  }
+  .private .btn {
+    width: 100%;
+  }
+  .chip-private {
+    flex-direction: column;
+    gap: 2px;
   }
   .hero-foot {
     font-size: 10px;
@@ -1416,52 +1447,6 @@ fieldset.field {
     display: block;
     font-size: 40px;
     margin-bottom: 22px;
-  }
-
-  /* Dates as a compact 3 x 3 grid */
-  .dates {
-    gap: 40px;
-  }
-  .dates-photo {
-    display: none;
-  }
-  .date-group + .date-group {
-    margin-top: 36px;
-  }
-  .date-month {
-    font-size: 24px;
-    padding-bottom: 12px;
-    border-bottom: 0;
-  }
-  .date-group ul {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-  }
-  .week {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 6px;
-    padding: 14px 12px 15px;
-    border: 1px solid var(--line);
-    background: rgba(246, 242, 234, 0.55);
-    height: 100%;
-    align-content: start;
-  }
-  .week::after,
-  .week-pick,
-  .week-range .long {
-    display: none;
-  }
-  .week-range .short {
-    display: inline;
-  }
-  .week-num {
-    font-size: 21px;
-  }
-  .week-range {
-    font-size: 17px;
-    line-height: 1.25;
   }
 
   /* Age groups: swipe cards over the photo */

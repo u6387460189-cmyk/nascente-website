@@ -15,6 +15,16 @@ function langFromPath(): Lang {
 
 const ROMAN = ["I", "II", "III"];
 
+/** Thin line WhatsApp glyph in the current text colour (no brand green, by design). */
+function WhatsAppIcon() {
+  return (
+    <svg className="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z" />
+      <path d="M9.1 7.9c-.4 0-.9.4-1 1-.3 1.6.6 3.5 2.1 5 1.5 1.5 3.4 2.4 5 2.1.6-.1 1-.6 1-1v-.9c0-.2-.1-.3-.3-.4l-1.8-.8a.4.4 0 0 0-.5.1l-.7.8a5.6 5.6 0 0 1-2.8-2.8l.8-.7a.4.4 0 0 0 .1-.5l-.8-1.8c-.1-.2-.2-.3-.4-.3h-.7Z" />
+    </svg>
+  );
+}
+
 export function App() {
   const [lang, setLang] = useState<Lang>(langFromPath);
   const [selected, setSelected] = useState<SessionId[]>([]);
@@ -271,7 +281,17 @@ export function App() {
                 <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
               </li>
               <li>
-                <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+                <a
+                  className="whatsapp"
+                  href={CONTACT.whatsapp(t.contact.greeting)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${t.contact.whatsapp}: ${CONTACT.phone}`}
+                  title={t.contact.whatsapp}
+                >
+                  <WhatsAppIcon />
+                  {CONTACT.phone}
+                </a>
               </li>
               <li>{CONTACT.place}</li>
             </ul>

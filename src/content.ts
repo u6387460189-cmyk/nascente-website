@@ -10,6 +10,8 @@ export const CONTACT = {
   email: "inquiries@nascenteproject.com",
   phone: "+420 776 316 388",
   phoneHref: "tel:+420776316388",
+  /** WhatsApp chat link; the greeting is pre-filled in the visitor's language. */
+  whatsapp: (greeting: string) => `https://wa.me/420776316388?text=${encodeURIComponent(greeting)}`,
   place: "Comporta, Portugal",
 };
 
@@ -214,6 +216,8 @@ const en = {
   contact: {
     label: "Contact",
     title: "It all begins with a conversation.",
+    whatsapp: "Message us on WhatsApp",
+    greeting: "Hello, I would like to ask about Nascente.",
   },
   footer: {
     privacy: "Privacy",
@@ -364,6 +368,8 @@ const pt: Copy = {
   contact: {
     label: "Contacto",
     title: "Tudo começa com uma conversa.",
+    whatsapp: "Fale connosco no WhatsApp",
+    greeting: "Olá, gostaria de saber mais sobre a Nascente.",
   },
   footer: {
     privacy: "Privacidade",
